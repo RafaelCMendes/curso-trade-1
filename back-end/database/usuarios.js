@@ -5,15 +5,17 @@ const listaUsuarios = [
         sobrenome: "Candongas",
         funcao: "Gerente",
         status: true,
-        email: "fulano@fulano.com"
+        email: "fulano@fulano.com",
+        obs: "teste"
     },
     {
         id:2,
         nome:"Ciclano",
         sobrenome: "Candongas",
         funcao: "Gerente",
-        status: true,
-        email: "ciclano@ciclano.com"
+        status: false,
+        email: "ciclano@ciclano.com",
+        obs: "rosca"
     }
 ];
 

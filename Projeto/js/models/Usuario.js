@@ -10,6 +10,7 @@
         this.funcao = obj.funcao;
         this.email = obj.email;
         this.status = obj.status;
+        this.obs = obj.obs;
     }
-    
+
  }
