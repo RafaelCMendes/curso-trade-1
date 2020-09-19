@@ -25,8 +25,6 @@ var moduloControleUsuario = (function () {
     usuarioSelecionado = null;
   });
 
-
-
   btnAdicionar.addEventListener('click', () => {
     usuarioSelecionado = null;
     _abrirModal();
@@ -47,7 +45,7 @@ var moduloControleUsuario = (function () {
 
     listaUsuarios = result;
 
-    //$("#tabela-usuario tr").remove(); 
+    tabelaUsuarios.textContent = "";
 
     listaUsuarios.map(u => {
       var tr = document.createElement('tr');
@@ -101,6 +99,7 @@ var moduloControleUsuario = (function () {
       edtObs.value = usuarioSelecionado.obs;
 
     } else {
+      usuarioSelecionado = new Usuario();
       edtNome.value = "";
       edtSobreNome.value = "";
       edtEmail.value = "";
@@ -119,8 +118,9 @@ var moduloControleUsuario = (function () {
 
   function _gravarUsuario() {
 
-    if (!usuarioSelecionado) {
-      usuarioSelecionado = new Usuario();
+    if(!!!(edtNome.value && cbFuncao.value)){
+      alert('Preencha os campos nome e funcao!')
+      return;
     }
 
     usuarioSelecionado.nome = edtNome.value;
@@ -132,37 +132,45 @@ var moduloControleUsuario = (function () {
     apiUsuario.gravarUsuario(usuarioSelecionado)
       .then(response => {
         console.log(response);
-        alert("Usuario Gravado!");
         obterUsuarios();
+        swal("Usuario Gravado", "", "success");
 
       })
-      .catch(error => alert('Deu ruim...'));
+      .catch(error => swal("Erro", "", "error"));
+
+     _fecharModal();  
 
   }
 
   $('#tabela-usuario').on('click', 'button.btn-excluir', function () {
     var indexRow = this.parentNode.parentNode.rowIndex - 1;
-
     var usuario = listaUsuarios[indexRow];
 
-    apiUsuario.excluiUsuario(usuario.id)
-      .then(response => {
-        console.log(response);
-        alert("Usuario Excluido!");
-        obterUsuarios();
 
-      })
-      .catch(error => alert('Deu ruim...'))
-
+    swal({
+      title: `Deseja Excluir o Usuario: ${usuario.nome}`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if(willDelete){
+        apiUsuario.excluiUsuario(usuario.id)
+        .then(response => {
+          console.log(response);
+          obterUsuarios();
+          swal("Usuario Excluido", "", "success");
+  
+        })
+        .catch(error => alert('Deu ruim...'))
+      }
+    });
   });
 
   $('#tabela-usuario').on('click', 'button.btn-editar', function () {
     var indexRow = this.parentNode.parentNode.rowIndex - 1;
-
     usuarioSelecionado = listaUsuarios[indexRow];
-
     _abrirModal();
-
   });
 
 

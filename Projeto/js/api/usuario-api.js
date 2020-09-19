@@ -61,4 +61,5 @@ var apiUsuario = (() => {
         gravarUsuario,
         excluiUsuario
     }
+    
 })()
