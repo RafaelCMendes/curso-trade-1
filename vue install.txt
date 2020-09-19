@@ -1,0 +1,9 @@
+node
+
+npm install -g @vue/cli
+
+vue ui
+
+add plugin router
+
+vetur

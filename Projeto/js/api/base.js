@@ -1,0 +1,5 @@
+((){
+
+let headerGlobal = document.querySelector();
+
+})()
