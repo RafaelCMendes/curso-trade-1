@@ -6,4 +6,4 @@ vue ui
 
 add plugin router
 
-vetur
+vetur visual studio
